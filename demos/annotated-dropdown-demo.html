@@ -818,8 +818,10 @@
                             <input 
                                 type="text" 
                                 class="search-input" 
-                                placeholder="🔍 Q New" 
+                                placeholder="🔍 Search cloud providers..." 
                                 oninput="filterSearchOptions(this.value)"
+                                onclick="event.stopPropagation()"
+                                onfocus="event.stopPropagation()"
                             >
                         </div>
                         <div class="dropdown-item" onclick="selectOption('search', 'AWS')">AWS</div>
@@ -1077,6 +1079,7 @@
 
         function filterSearchOptions(searchTerm) {
             const items = document.querySelectorAll('#search-menu .dropdown-item');
+            let hasVisibleItems = false;
             
             items.forEach(item => {
                 const text = item.textContent.toLowerCase();
@@ -1084,10 +1087,28 @@
                 
                 if (matches) {
                     item.style.display = 'flex';
+                    hasVisibleItems = true;
                 } else {
                     item.style.display = 'none';
                 }
             });
+            
+            // Show "No results" message if no items match
+            let noResults = document.getElementById('search-no-results');
+            if (!hasVisibleItems && searchTerm.trim() !== '') {
+                if (!noResults) {
+                    noResults = document.createElement('div');
+                    noResults.id = 'search-no-results';
+                    noResults.className = 'dropdown-item';
+                    noResults.style.color = '#6b7280';
+                    noResults.style.fontStyle = 'italic';
+                    noResults.textContent = 'No results found';
+                    document.getElementById('search-menu').appendChild(noResults);
+                }
+                noResults.style.display = 'flex';
+            } else if (noResults) {
+                noResults.style.display = 'none';
+            }
         }
 
         function toggleFocus(field) {
