@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Dropdown Components</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: #081826;
+            padding: 2rem;
+            line-height: 1.5;
+            transition: all 0.3s ease;
+        }
+
+        body[data-theme="dark"] {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #6b7280;
+        }
+
+        body[data-theme="dark"] .header p {
+            color: #9ca3af;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+        }
+
+        .theme-toggle button {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: #374151;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        body[data-theme="dark"] .theme-toggle button {
+            background: #374151;
+            border-color: #4b5563;
+            color: #f9fafb;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .component-section {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        body[data-theme="dark"] .component-section {
+            background: #2d2d2d;
+            border-color: #404040;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .component-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #081826;
+        }
+
+        body[data-theme="dark"] .component-title {
+            color: #ffffff;
+        }
+
+        .component-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        body[data-theme="dark"] .component-description {
+            color: #9ca3af;
+        }
+
+        .dropdown-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .dropdown-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #081826;
+            margin-bottom: 6px;
+        }
+
+        body[data-theme="dark"] .dropdown-label {
+            color: #ffffff;
+        }
+
+        .dropdown-field {
+            width: 100%;
+            height: 48px;
+            background: #ffffff;
+            border: 1px solid #9da4ae;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        body[data-theme="dark"] .dropdown-field {
+            background: #374151;
+            border-color: #6b7280;
+            color: #ffffff;
+        }
+
+        .dropdown-field:hover {
+            border-color: #6b7280;
+        }
+
+        .dropdown-field.focus-active {
+            border-color: #155e75;
+            box-shadow: 0 0 0 1px #155e75, 0 0 0 3px #fb923c;
+        }
+
+        .dropdown-field.error {
+            border-color: #c1001b;
+        }
+
+        .dropdown-text {
+            color: #9da4ae;
+        }
+
+        body[data-theme="dark"] .dropdown-text {
+            color: #9ca3af;
+        }
+
+        .dropdown-text.selected {
+            color: #081826;
+        }
+
+        body[data-theme="dark"] .dropdown-text.selected {
+            color: #ffffff;
+        }
+
+        .dropdown-chevron {
+            width: 16px;
+            height: 16px;
+            color: #253746;
+            transition: transform 0.2s ease;
+        }
+
+        body[data-theme="dark"] .dropdown-chevron {
+            color: #9ca3af;
+        }
+
+        .dropdown-chevron.open {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            margin-top: 4px;
+            background: #fafafa;
+            border: 1px solid #d1d1d6;
+            border-radius: 9px;
+            box-shadow: 0px 4px 8px 0px #949494;
+            max-height: 320px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        body[data-theme="dark"] .dropdown-menu {
+            background: #374151;
+            border-color: #4b5563;
+            box-shadow: 0px 4px 8px 0px #000000;
+        }
+
+        .dropdown-menu.open {
+            display: block;
+        }
+
+        .dropdown-item {
+            width: 100%;
+            height: 48px;
+            background: #fafafa;
+            border: none;
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #081826;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+
+        body[data-theme="dark"] .dropdown-item {
+            background: #374151;
+            color: #ffffff;
+        }
+
+        .dropdown-item:hover {
+            background: #e9ebec;
+        }
+
+        body[data-theme="dark"] .dropdown-item:hover {
+            background: #4b5563;
+        }
+
+        .dropdown-item.selected {
+            background: #cffafe;
+            font-weight: 500;
+        }
+
+        body[data-theme="dark"] .dropdown-item.selected {
+            background: #155e75;
+        }
+
+        .group-header {
+            width: 100%;
+            height: 32px;
+            background: #e4e7ec;
+            border: none;
+            display: flex;
+            align-items: center;
+            padding: 16px 8px;
+            font-family: 'Noto Sans', sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 20px;
+            color: #081826;
+            text-align: left;
+        }
+
+        body[data-theme="dark"] .group-header {
+            background: #4b5563;
+            color: #ffffff;
+        }
+
+        .group-item {
+            padding-left: 16px;
+            padding-right: 8px;
+        }
+
+        .create-option {
+            width: 100%;
+            height: 48px;
+            background: #fafafa;
+            border: none;
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            cursor: pointer;
+        }
+
+        body[data-theme="dark"] .create-option {
+            background: #374151;
+        }
+
+        .create-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            color: #1c63a5;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .create-button:hover {
+            background: #f8fafc;
+        }
+
+        body[data-theme="dark"] .create-button:hover {
+            background: #4b5563;
+        }
+
+        .create-button svg {
+            width: 16px;
+            height: 16px;
+            color: #1c63a5;
+        }
+
+        .error-message {
+            color: #c1001b;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .annotation {
+            background: rgba(255, 255, 0, 0.1);
+            border: 2px dashed #ffd700;
+            border-radius: 4px;
+            padding: 12px;
+            margin-top: 1rem;
+            font-size: 12px;
+            color: #333;
+        }
+
+        body[data-theme="dark"] .annotation {
+            background: rgba(255, 255, 0, 0.05);
+            color: #fbbf24;
+        }
+
+        .annotation-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .annotation-text {
+            line-height: 1.4;
+        }
+
+        .section-label {
+            font-size: 12px;
+            color: #000000;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        body[data-theme="dark"] .section-label {
+            color: #ffffff;
+        }
+
+        /* Multi-Select Styles */
+        .multi-select-field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 48px;
+            padding: 0 12px;
+        }
+
+        .multi-select-text {
+            color: #9da4ae;
+            font-size: 14px;
+        }
+
+        .selected-count {
+            color: #081826;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        body[data-theme="dark"] .selected-count {
+            color: #ffffff;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            border: 1px solid #9da4ae;
+            border-radius: 2px;
+            background: #ffffff;
+            cursor: pointer;
+            position: relative;
+        }
+
+        body[data-theme="dark"] .checkbox {
+            background: #374151;
+            border-color: #6b7280;
+        }
+
+        .checkbox.checked {
+            background: #1c63a5;
+            border-color: #1c63a5;
+        }
+
+        .checkbox.checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 4px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        /* Tags/Chips Styles */
+        .tags-field {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 8px 12px;
+            min-height: 48px;
+        }
+
+        .tag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #e5e7eb;
+            border-radius: 16px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+        }
+
+        body[data-theme="dark"] .tag {
+            background: #4b5563;
+            color: #f9fafb;
+        }
+
+        .tag-remove {
+            width: 14px;
+            height: 14px;
+            border: none;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* Search Styles */
+        .search-input {
+            width: 100%;
+            height: 40px;
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 0 12px;
+            font-family: inherit;
+            font-size: 14px;
+            color: #081826;
+            outline: none;
+        }
+
+        body[data-theme="dark"] .search-input {
+            background: #374151;
+            border-color: #4b5563;
+            color: #ffffff;
+        }
+
+        .search-input::placeholder {
+            color: #9da4ae;
+        }
+
+        .search-container {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        body[data-theme="dark"] .search-container {
+            border-bottom-color: #4b5563;
+        }
+
+        /* Combobox specific styles */
+        .combobox-input {
+            width: 100%;
+            height: 48px;
+            background: #ffffff;
+            border: 1px solid #9da4ae;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        body[data-theme="dark"] .combobox-input {
+            background: #374151;
+            border-color: #6b7280;
+            color: #ffffff;
+        }
+
+        .combobox-input:focus-within {
+            border-color: #155e75;
+            box-shadow: 0 0 0 1px #155e75, 0 0 0 3px #fb923c;
+        }
+
+        .combobox-input input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 14px;
+            color: #081826;
+            outline: none;
+        }
+
+        body[data-theme="dark"] .combobox-input input {
+            color: #ffffff;
+        }
+
+        .combobox-input input::placeholder {
+            color: #9da4ae;
+        }
+
+        body[data-theme="dark"] .combobox-input input::placeholder {
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button onclick="toggleTheme()">Toggle Theme</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Complete Dropdown Components</h1>
+            <p>All dropdown types from Figma design with full functionality</p>
+        </div>
+
+        <div class="components-grid">
+            <!-- Standard Dropdown - Closed -->
+            <div class="component-section">
+                <div class="component-title">Standard Dropdown</div>
+                <div class="component-description">Standard dropdown with closed dropdown</div>
+                
+                <div class="dropdown-container">
+                    <div class="dropdown-label">Label</div>
+                    <div class="dropdown-field" onclick="toggleDropdown('standard')">
+                        <span class="dropdown-text" id="standard-text">Select Zero trust policies</span>
+                        <svg class="dropdown-chevron" id="standard-chevron" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="standard-menu">
+                        <div class="dropdown-item" onclick="selectOption('standard', 'Device Trust Certification')">Device Trust Certification</div>
+                        <div class="dropdown-item" onclick="selectOption('standard', 'Zero Trust Policy')">Zero Trust Policy</div>
+                        <div class="dropdown-item" onclick="selectOption('standard', 'Access Control Lists')">Access Control Lists</div>
+                        <div class="dropdown-item" onclick="selectOption('standard', 'Data Encryption Standards')">Data Encryption Standards</div>
+                        <div class="dropdown-item" onclick="selectOption('standard', 'Incident Response Plan')">Incident Response Plan</div>
+                        <div class="dropdown-item" onclick="selectOption('standard', 'Security Awareness Training')">Security Awareness Training</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standard Dropdown - Open -->
+            <div class="component-section">
+                <div class="component-title">Standard Dropdown - Open</div>
+                <div class="component-description">Standard dropdown with open dropdown panel | Hover state of item</div>
+                
+                <div class="dropdown-container">
+                    <div class="dropdown-label">Label</div>
+                    <div class="dropdown-field" onclick="toggleDropdown('standard-open')">
+                        <span class="dropdown-text" id="standard-open-text">Select Zero trust policies</span>
+                        <svg class="dropdown-chevron" id="standard-open-chevron" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="standard-open-menu">
+                        <div class="dropdown-item" onclick="selectOption('standard-open', 'Device Trust Certification')">Device Trust Certification</div>
+                        <div class="dropdown-item" style="background: #e9ebec;" onclick="selectOption('standard-open', 'Zero Trust Policy')">Zero Trust Policy</div>
+                        <div class="dropdown-item" onclick="selectOption('standard-open', 'Access Control Lists')">Access Control Lists</div>
+                        <div class="dropdown-item" onclick="selectOption('standard-open', 'Data Encryption Standards')">Data Encryption Standards</div>
+                        <div class="dropdown-item" onclick="selectOption('standard-open', 'Incident Response Plan')">Incident Response Plan</div>
+                        <div class="dropdown-item" onclick="selectOption('standard-open', 'Security Awareness Training')">Security Awareness Training</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group Dropdown -->
+            <div class="component-section">
+                <div class="component-title">Group Dropdown</div>
+                <div class="component-description">Group dropdown with dropdown open | Group dropdown header</div>
+                
+                <div class="dropdown-container">
+                    <div class="dropdown-label">Label</div>
+                    <div class="dropdown-field" onclick="toggleDropdown('group')">
+                        <span class="dropdown-text" id="group-text">Select an option...</span>
+                        <svg class="dropdown-chevron" id="group-chevron" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="group-menu">
+                        <div class="group-header">Network security</div>
+                        <div class="dropdown-item group-item" onclick="selectOption('group', 'Zero Trust Policy')">Zero Trust Policy</div>
+                        <div class="dropdown-item group-item" onclick="selectOption('group', 'Firewall Rules')">Firewall Rules</div>
+                        <div class="dropdown-item group-item" onclick="selectOption('group', 'VPN Configuration')">VPN Configuration</div>
+                        <div class="group-header">Application security</div>
+                        <div class="dropdown-item group-item" onclick="selectOption('group', 'API Security')">API Security</div>
+                        <div class="dropdown-item group-item" onclick="selectOption('group', 'Web Application Firewall')">Web Application Firewall</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Combobox with Create -->
+            <div class="component-section">
+                <div class="component-title">Combobox with Create</div>
+                <div class="component-description">Combobox input field with create new item functionality</div>
+                
+                <div class="dropdown-container">
+                    <div class="dropdown-label">Fruit</div>
+                    <div class="combobox-input" onclick="toggleDropdown('combobox')">
+                        <input 
+                            type="text" 
+                            id="combobox-input" 
+                            placeholder="Type to search..." 
+                            value="Apple"
+                            oninput="filterOptions(this.value)"
+                            onfocus="toggleDropdown('combobox')"
+                        >
+                        <svg class="dropdown-chevron" id="combobox-chevron" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="combobox-menu">
+                        <div class="dropdown-item" onclick="selectOption('combobox', 'Apple')">Apple</div>
+                        <div class="dropdown-item" onclick="selectOption('combobox', 'Banana')">Banana</div>
+                        <div class="dropdown-item" onclick="selectOption('combobox', 'Grape')">Grape</div>
+                        <div class="dropdown-item" onclick="selectOption('combobox', 'Mango')">Mango</div>
+                        <div class="dropdown-item" onclick="selectOption('combobox', 'Strawberry')">Strawberry</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multi-Select Dropdown -->
+            <div class="component-section">
+                <div class="component-title">Multi-Select Dropdown</div>
+                <div class="component-description">Multi-select dropdown with checkboxes</div>
+                
+                <div class="dropdown-container">
+                    <div class="dropdown-label">Label</div>
+                    <div class="dropdown-field" onclick="toggleDropdown('multiselect')">
+                        <div class="multi-select-field">
+                            <span class="multi-select-text" id="multiselect-text">Select an option</span>
+                        </div>
+                        <svg class="dropdown-chevron" id="multiselect-chevron" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="multiselect-menu">
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('select-all')">
+                            <div class="checkbox" id="select-all-checkbox"></div>
+                            <span>Select all</span>
+                        </div>
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('analytics')">
+                            <div class="checkbox" id="analytics-checkbox"></div>
+                            <span>Analytics</span>
+                        </div>
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('security')">
+                            <div class="checkbox" id="security-checkbox"></div>
+                            <span>Security</span>
+                        </div>
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('performance')">
+                            <div class="checkbox" id="performance-checkbox"></div>
+                            <span>Performance</span>
+                        </div>
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('monitoring')">
+                            <div class="checkbox" id="monitoring-checkbox"></div>
+                            <span>Monitoring</span>
+                        </div>
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('logging')">
+                            <div class="checkbox" id="logging-checkbox"></div>
+                            <span>Logging</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multi-Select with Selections -->
+            <div class="component-section">
+                <div class="component-title">Multi-Select with Selections</div>
+                <div class="component-description">Multi-select dropdown showing selected count</div>
+                
+                <div class="dropdown-container">
+                    <div class="dropdown-label">Label</div>
+                    <div class="dropdown-field" onclick="toggleDropdown('multiselect-count')">
+                        <div class="multi-select-field">
+                            <span class="selected-count" id="multiselect-count-text">2 Selected</span>
+                        </div>
+                        <svg class="dropdown-chevron" id="multiselect-count-chevron" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="multiselect-count-menu">
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('select-all-count')">
+                            <div class="checkbox" id="select-all-count-checkbox"></div>
+                            <span>Select all</span>
+                        </div>
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('analytics-count')">
+                            <div class="checkbox checked" id="analytics-count-checkbox"></div>
+                            <span>Analytics</span>
+                        </div>
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('security-count')">
+                            <div class="checkbox checked" id="security-count-checkbox"></div>
+                            <span>Security</span>
+                        </div>
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('performance-count')">
+                            <div class="checkbox" id="performance-count-checkbox"></div>
+                            <span>Performance</span>
+                        </div>
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('monitoring-count')">
+                            <div class="checkbox" id="monitoring-count-checkbox"></div>
+                            <span>Monitoring</span>
+                        </div>
+                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('logging-count')">
+                            <div class="checkbox" id="logging-count-checkbox"></div>
+                            <span>Logging</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tags/Chips Dropdown -->
+            <div class="component-section">
+                <div class="component-title">Tags/Chips Dropdown</div>
+                <div class="component-description">Dropdown with selected items as tags/chips</div>
+                
+                <div class="dropdown-container">
+                    <div class="dropdown-label">Label</div>
+                    <div class="dropdown-field" onclick="toggleDropdown('tags')">
+                        <div class="tags-field">
+                            <div class="tag">
+                                <span>HTML</span>
+                                <button class="tag-remove" onclick="removeTag('HTML', event)">×</button>
+                            </div>
+                            <div class="tag">
+                                <span>Rails</span>
+                                <button class="tag-remove" onclick="removeTag('Rails', event)">×</button>
+                            </div>
+                        </div>
+                        <svg class="dropdown-chevron" id="tags-chevron" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="tags-menu">
+                        <div class="dropdown-item" onclick="addTag('React')">React</div>
+                        <div class="dropdown-item" onclick="addTag('Ruby')">Ruby</div>
+                        <div class="dropdown-item" onclick="addTag('Kitchen Repair')">Kitchen Repair</div>
+                        <div class="dropdown-item" onclick="addTag('Meteor')">Meteor</div>
+                        <div class="dropdown-item" onclick="addTag('Angular')">Angular</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Dropdown -->
+            <div class="component-section">
+                <div class="component-title">Search Dropdown</div>
+                <div class="component-description">Dropdown with integrated search functionality</div>
+                
+                <div class="dropdown-container">
+                    <div class="dropdown-label">Label</div>
+                    <div class="dropdown-field" onclick="toggleDropdown('search')">
+                        <span class="dropdown-text" id="search-text">Select cloud providers</span>
+                        <svg class="dropdown-chevron" id="search-chevron" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="dropdown-menu" id="search-menu">
+                        <div class="search-container">
+                            <input 
+                                type="text" 
+                                class="search-input" 
+                                placeholder="🔍 Q New" 
+                                oninput="filterSearchOptions(this.value)"
+                            >
+                        </div>
+                        <div class="dropdown-item" onclick="selectOption('search', 'AWS')">AWS</div>
+                        <div class="dropdown-item" onclick="selectOption('search', 'Azure')">Azure</div>
+                        <div class="dropdown-item" onclick="selectOption('search', 'Google Cloud')">Google Cloud</div>
+                        <div class="dropdown-item" onclick="selectOption('search', 'Digital Ocean')">Digital Ocean</div>
+                        <div class="dropdown-item" onclick="selectOption('search', 'Heroku')">Heroku</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Demo Section -->
+        <div class="component-section">
+            <div class="component-title">Interactive Demo</div>
+            <div class="component-description">
+                Try the dropdowns with full functionality. Click on any dropdown field to see the proper focus states with cyan inner border and orange outer ring.
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="dropdown-container">
+                    <div class="dropdown-label">Click to Focus</div>
+                    <div class="dropdown-field" onclick="toggleFocus(this)">
+                        <span class="dropdown-text">Click to see focus state...</span>
+                        <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="dropdown-container">
+                    <div class="dropdown-label">Error State</div>
+                    <div class="dropdown-field error" onclick="toggleFocus(this)">
+                        <span class="dropdown-text">Select an option...</span>
+                        <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="error-message">Please select a valid option to continue</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Available options for combobox - this will be updated when new options are created
+        let availableOptions = ['Apple', 'Banana', 'Grape', 'Mango', 'Strawberry'];
+        
+        // Multi-select state
+        let selectedItems = {
+            'multiselect': [],
+            'multiselect-count': ['Analytics', 'Security']
+        };
+
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+        }
+
+        function toggleDropdown(id) {
+            const menu = document.getElementById(id + '-menu');
+            const chevron = document.getElementById(id + '-chevron');
+            const isOpen = menu.classList.contains('open');
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+                dropdown.classList.remove('open');
+            });
+            document.querySelectorAll('.dropdown-chevron').forEach(chev => {
+                chev.classList.remove('open');
+            });
+            
+            // Toggle current dropdown
+            if (!isOpen) {
+                menu.classList.add('open');
+                chevron.classList.add('open');
+            }
+        }
+
+        function selectOption(dropdownId, value) {
+            if (dropdownId === 'combobox') {
+                const inputElement = document.getElementById('combobox-input');
+                inputElement.value = value;
+            } else {
+                const textElement = document.getElementById(dropdownId + '-text');
+                textElement.textContent = value;
+                textElement.classList.remove('dropdown-text');
+                textElement.classList.add('dropdown-text', 'selected');
+            }
+            
+            const menu = document.getElementById(dropdownId + '-menu');
+            const chevron = document.getElementById(dropdownId + '-chevron');
+            
+            menu.classList.remove('open');
+            chevron.classList.remove('open');
+        }
+
+        function filterOptions(searchTerm) {
+            const menu = document.getElementById('combobox-menu');
+            const items = menu.querySelectorAll('.dropdown-item');
+            const createOption = menu.querySelector('.create-option');
+            
+            // Remove existing create option
+            if (createOption) {
+                createOption.remove();
+            }
+            
+            let hasVisibleItems = false;
+            
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                const matches = text.includes(searchTerm.toLowerCase());
+                
+                if (matches) {
+                    item.style.display = 'flex';
+                    hasVisibleItems = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Show create option only if search term is not empty and not in the list
+            if (searchTerm.trim() && !availableOptions.some(option => 
+                option.toLowerCase() === searchTerm.toLowerCase()
+            )) {
+                const createOptionDiv = document.createElement('div');
+                createOptionDiv.className = 'create-option';
+                createOptionDiv.innerHTML = `
+                    <button class="create-button" onclick="createOption('${searchTerm}')">
+                        <svg viewBox="0 0 16 16" fill="none">
+                            <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Create
+                    </button>
+                    <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 14px; line-height: 20px; color: #1c63a5;">"${searchTerm}"</span>
+                `;
+                menu.insertBefore(createOptionDiv, menu.firstChild);
+            }
+            
+            // Show/hide menu based on search term
+            if (searchTerm.trim()) {
+                menu.classList.add('open');
+                document.getElementById('combobox-chevron').classList.add('open');
+            } else {
+                menu.classList.remove('open');
+                document.getElementById('combobox-chevron').classList.remove('open');
+            }
+        }
+
+        function createOption(value) {
+            const inputElement = document.getElementById('combobox-input');
+            inputElement.value = value;
+            
+            // Add to available options permanently
+            availableOptions.push(value);
+            
+            // Add the new option to the dropdown menu permanently
+            const menu = document.getElementById('combobox-menu');
+            const newItem = document.createElement('div');
+            newItem.className = 'dropdown-item';
+            newItem.textContent = value;
+            newItem.onclick = () => selectOption('combobox', value);
+            menu.appendChild(newItem);
+            
+            // Close dropdown
+            const chevron = document.getElementById('combobox-chevron');
+            menu.classList.remove('open');
+            chevron.classList.remove('open');
+            
+            // Show success message
+            alert(`Created new option: "${value}" - It's now permanently added to the list!`);
+        }
+
+        function toggleCheckbox(id) {
+            const checkbox = document.getElementById(id + '-checkbox');
+            const isChecked = checkbox.classList.contains('checked');
+            
+            if (id === 'select-all') {
+                // Handle select all
+                const checkboxes = document.querySelectorAll('#multiselect-menu .checkbox');
+                checkboxes.forEach(cb => {
+                    if (!isChecked) {
+                        cb.classList.add('checked');
+                    } else {
+                        cb.classList.remove('checked');
+                    }
+                });
+                updateMultiSelectText('multiselect');
+            } else if (id === 'select-all-count') {
+                // Handle select all for count version
+                const checkboxes = document.querySelectorAll('#multiselect-count-menu .checkbox');
+                checkboxes.forEach(cb => {
+                    if (!isChecked) {
+                        cb.classList.add('checked');
+                    } else {
+                        cb.classList.remove('checked');
+                    }
+                });
+                updateMultiSelectText('multiselect-count');
+            } else {
+                // Handle individual checkbox
+                if (isChecked) {
+                    checkbox.classList.remove('checked');
+                } else {
+                    checkbox.classList.add('checked');
+                }
+                
+                // Update text based on which dropdown
+                if (id.includes('count')) {
+                    updateMultiSelectText('multiselect-count');
+                } else {
+                    updateMultiSelectText('multiselect');
+                }
+            }
+        }
+
+        function updateMultiSelectText(dropdownId) {
+            const textElement = document.getElementById(dropdownId + '-text');
+            const checkboxes = document.querySelectorAll(`#${dropdownId}-menu .checkbox:not(#select-all-checkbox):not(#select-all-count-checkbox)`);
+            const checkedCount = Array.from(checkboxes).filter(cb => cb.classList.contains('checked')).length;
+            
+            if (checkedCount === 0) {
+                textElement.textContent = 'Select an option';
+                textElement.className = 'multi-select-text';
+            } else {
+                textElement.textContent = `${checkedCount} Selected`;
+                textElement.className = 'selected-count';
+            }
+        }
+
+        function addTag(tagName) {
+            const tagsField = document.querySelector('.tags-field');
+            const newTag = document.createElement('div');
+            newTag.className = 'tag';
+            newTag.innerHTML = `
+                <span>${tagName}</span>
+                <button class="tag-remove" onclick="removeTag('${tagName}', event)">×</button>
+            `;
+            tagsField.appendChild(newTag);
+            
+            // Close dropdown
+            const menu = document.getElementById('tags-menu');
+            const chevron = document.getElementById('tags-chevron');
+            menu.classList.remove('open');
+            chevron.classList.remove('open');
+        }
+
+        function removeTag(tagName, event) {
+            event.stopPropagation();
+            const tag = event.target.closest('.tag');
+            tag.remove();
+        }
+
+        function filterSearchOptions(searchTerm) {
+            const items = document.querySelectorAll('#search-menu .dropdown-item');
+            
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                const matches = text.includes(searchTerm.toLowerCase());
+                
+                if (matches) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleFocus(field) {
+            // Remove focus from all other fields
+            document.querySelectorAll('.dropdown-field, .combobox-input').forEach(f => {
+                f.classList.remove('focus-active');
+            });
+            // Add focus to clicked field
+            field.classList.add('focus-active');
+        }
+
+        // Click outside to close dropdowns and remove focus
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown-field') && !event.target.closest('.combobox-input')) {
+                document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+                    dropdown.classList.remove('open');
+                });
+                document.querySelectorAll('.dropdown-chevron').forEach(chevron => {
+                    chevron.classList.remove('open');
+                });
+                document.querySelectorAll('.dropdown-field, .combobox-input').forEach(field => {
+                    field.classList.remove('focus-active');
+                });
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.dropdown-menu').forEach(dropdown => {
+                    dropdown.classList.remove('open');
+                });
+                document.querySelectorAll('.dropdown-chevron').forEach(chevron => {
+                    chevron.classList.remove('open');
+                });
+                document.querySelectorAll('.dropdown-field, .combobox-input').forEach(field => {
+                    field.classList.remove('focus-active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# Netlify redirects file
+# Ensure proper routing for the dropdown demos
+
+# Redirect root to index.html (if needed)
+/ /index.html 200
+
+# Handle any 404s by redirecting to the main page
+/* /index.html 404

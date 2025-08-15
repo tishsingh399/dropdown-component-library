@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Component Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #081826;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        body[data-theme="dark"] {
+            background: #1f2937;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #081826;
+        }
+
+        body[data-theme="dark"] .title {
+            color: #ffffff;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        body[data-theme="dark"] .subtitle {
+            color: #9ca3af;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            color: #374151;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        body[data-theme="dark"] .theme-toggle {
+            background: #374151;
+            border-color: #4b5563;
+            color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-toggle:hover {
+            background: #f9fafb;
+        }
+
+        body[data-theme="dark"] .theme-toggle:hover {
+            background: #4b5563;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .demo-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        body[data-theme="dark"] .demo-card {
+            background: #2d2d2d;
+            border-color: #404040;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .demo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        body[data-theme="dark"] .demo-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .demo-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #081826;
+        }
+
+        body[data-theme="dark"] .demo-title {
+            color: #ffffff;
+        }
+
+        .demo-description {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        body[data-theme="dark"] .demo-description {
+            color: #9ca3af;
+        }
+
+        .demo-button {
+            display: inline-block;
+            background: #1c63a5;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+
+        .demo-button:hover {
+            background: #155e75;
+        }
+
+        .features {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        body[data-theme="dark"] .features {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+
+        .features h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #081826;
+        }
+
+        body[data-theme="dark"] .features h2 {
+            color: #ffffff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature {
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        body[data-theme="dark"] .feature {
+            background: #374151;
+        }
+
+        .feature h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #081826;
+        }
+
+        body[data-theme="dark"] .feature h3 {
+            color: #ffffff;
+        }
+
+        .feature p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        body[data-theme="dark"] .feature p {
+            color: #9ca3af;
+        }
+
+        .status {
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: #166534;
+        }
+
+        body[data-theme="dark"] .status {
+            background: #1f2937;
+            border-color: #374151;
+            color: #86efac;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .theme-toggle {
+                position: static;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <button class="theme-toggle" onclick="toggleTheme()">
+        🌙 Dark Mode
+    </button>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Dropdown Component Library</h1>
+            <p class="subtitle">A comprehensive collection of accessible, customizable dropdown components with design tokens</p>
+        </div>
+
+        <div class="status">
+            ✅ <strong>Successfully deployed to Netlify!</strong> Your dropdown component library is now live and ready to use.
+        </div>
+
+        <div class="demo-grid">
+            <a href="demos/annotated-dropdown-demo.html" class="demo-card">
+                <h2 class="demo-title">🎯 Complete Dropdown Demo</h2>
+                <p class="demo-description">Full interactive demo with all dropdown types: Standard, Group, Combobox, Multi-Select, Tags, and Search. Features light/dark theme toggle and design token integration.</p>
+                <span class="demo-button">View Demo →</span>
+            </a>
+
+            <a href="demos/figma-dropdown-demo.html" class="demo-card">
+                <h2 class="demo-title">🎨 Figma Replica</h2>
+                <p class="demo-description">Exact visual replica of the Figma design with annotations. Perfect for design review and comparison.</p>
+                <span class="demo-button">View Demo →</span>
+            </a>
+
+            <a href="demos/simple-dropdown-demo.html" class="demo-card">
+                <h2 class="demo-title">⚡ Simple Demo</h2>
+                <p class="demo-description">Basic dropdown functionality with design tokens. Clean and minimal for quick testing.</p>
+                <span class="demo-button">View Demo →</span>
+            </a>
+        </div>
+
+        <div class="features">
+            <h2>✨ Features</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>🎨 Design Tokens</h3>
+                    <p>Fully integrated with your SDStoken design system. Supports light and dark themes with smooth transitions.</p>
+                </div>
+                <div class="feature">
+                    <h3>♿ Accessibility</h3>
+                    <p>Built with ARIA attributes, keyboard navigation, and screen reader support. Follows WCAG guidelines.</p>
+                </div>
+                <div class="feature">
+                    <h3>🔧 Multiple Types</h3>
+                    <p>Standard, Group, Combobox with create, Multi-Select, Tags/Chips, and Search dropdowns.</p>
+                </div>
+                <div class="feature">
+                    <h3>📱 Responsive</h3>
+                    <p>Mobile-friendly design that works across all screen sizes and devices.</p>
+                </div>
+                <div class="feature">
+                    <h3>⚡ Performance</h3>
+                    <p>Lightweight vanilla JavaScript with no external dependencies. Fast loading and smooth interactions.</p>
+                </div>
+                <div class="feature">
+                    <h3>🧪 Tested</h3>
+                    <p>Comprehensive Vitest + Testing Library test suite with 75+ test cases covering behavior and accessibility.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const button = document.querySelector('.theme-toggle');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                button.textContent = '🌙 Dark Mode';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                button.textContent = '☀️ Light Mode';
+            }
+        }
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+        
+        // Update button text
+        const button = document.querySelector('.theme-toggle');
+        if (savedTheme === 'dark') {
+            button.textContent = '☀️ Light Mode';
+        }
+
+        // Save theme preference
+        document.querySelector('.theme-toggle').addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            localStorage.setItem('theme', currentTheme === 'dark' ? 'light' : 'dark');
+        });
+    </script>
+</body>
+</html>

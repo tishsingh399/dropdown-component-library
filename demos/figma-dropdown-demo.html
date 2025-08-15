@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Dropdown Design - Exact Replica</title>
+    <link rel="stylesheet" href="dropdown-tokens.css">
+    <style>
+        /* Base styles */
+        body {
+            font-family: var(--font-family-inter), sans-serif;
+            background: #ffffff;
+            color: var(--text-primary);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            height: 800px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .theme-toggle button {
+            background: var(--background-input);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-md) var(--spacing-xl);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-family: var(--font-family-inter), sans-serif;
+            font-size: var(--font-size-sm);
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle button:hover {
+            background: var(--background-surface-row-hover);
+        }
+
+        /* Figma-style positioning */
+        .figma-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Text Component */
+        .text-component {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .text-component.placeholder {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 67.08%;
+            top: 0;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #9da4ae;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .text-component.label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 82.5%;
+            top: 0;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+            color: #081826;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        /* Chevron Icon */
+        .chevron-icon {
+            position: relative;
+            width: 16px;
+            height: 16px;
+        }
+
+        .chevron-icon .vector {
+            position: absolute;
+            inset: 29.95% 16.96%;
+        }
+
+        .chevron-icon svg {
+            width: 100%;
+            height: 100%;
+            color: #253746;
+        }
+
+        /* Dropdown Field */
+        .dropdown-field {
+            position: relative;
+            width: 100%;
+            height: 48px;
+            background: #ffffff;
+            border: 1px solid #9da4ae;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 12px;
+            box-sizing: border-box;
+        }
+
+        .dropdown-field.focus-active {
+            border-color: #155e75;
+            box-shadow: 0 0 0 1px #155e75, 0 0 0 3px #fb923c;
+        }
+
+        .dropdown-field.error {
+            border-color: #c1001b;
+        }
+
+        .dropdown-field .text-container {
+            flex: 1;
+            height: 20px;
+            position: relative;
+        }
+
+        /* Dropdown Item */
+        .dropdown-item {
+            width: 100%;
+            height: 48px;
+            background: #fafafa;
+            border: none;
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            box-sizing: border-box;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #081826;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            background: #e9ebec;
+        }
+
+        .dropdown-item.selected {
+            background: #cffafe;
+            font-weight: 500;
+        }
+
+        /* Group Header */
+        .group-header {
+            width: 100%;
+            height: 32px;
+            background: #e4e7ec;
+            border: none;
+            display: flex;
+            align-items: center;
+            padding: 16px 8px;
+            box-sizing: border-box;
+            font-family: 'Noto Sans', sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 20px;
+            color: #081826;
+            text-align: left;
+        }
+
+        /* Dropdown Container */
+        .dropdown-container {
+            background: #fafafa;
+            border: 1px solid #d1d1d6;
+            border-radius: 9px;
+            box-shadow: 0px 4px 8px 0px #949494;
+            max-height: 320px;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+
+        /* Create Option */
+        .create-option {
+            width: 100%;
+            height: 48px;
+            background: #fafafa;
+            border: none;
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .create-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            color: #1c63a5;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .create-button:hover {
+            background: #f8fafc;
+        }
+
+        .create-button svg {
+            width: 16px;
+            height: 16px;
+            color: #1c63a5;
+        }
+
+        /* Section Label */
+        .section-label {
+            position: absolute;
+            left: 114px;
+            top: 47px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: normal;
+            color: #000000;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        /* Standard Dropdown - Closed */
+        .standard-dropdown-closed {
+            position: absolute;
+            left: 114px;
+            top: 81px;
+            width: 300px;
+            max-width: 400px;
+            min-width: 240px;
+        }
+
+        .standard-dropdown-closed .label {
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        /* Standard Dropdown - Open */
+        .standard-dropdown-open {
+            position: absolute;
+            left: 114px;
+            top: 176px;
+            width: 300px;
+            max-width: 400px;
+            min-width: 240px;
+        }
+
+        .standard-dropdown-open .label {
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        /* Group Dropdown */
+        .group-dropdown {
+            position: absolute;
+            left: 507px;
+            top: 86px;
+            width: 300px;
+            min-width: 240px;
+        }
+
+        .group-dropdown .label {
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        /* Combobox */
+        .combobox {
+            position: absolute;
+            left: 874px;
+            top: 94px;
+            width: 300px;
+            min-width: 240px;
+        }
+
+        .combobox .label {
+            height: 24px;
+            margin-bottom: 4px;
+        }
+
+        /* Annotations */
+        .annotation {
+            position: absolute;
+            background: rgba(255, 255, 0, 0.1);
+            border: 2px dashed #ffd700;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 12px;
+            color: #333;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .annotation.standard-closed {
+            left: 114px;
+            top: 81px;
+            width: 300px;
+            height: 80px;
+        }
+
+        .annotation.standard-open {
+            left: 114px;
+            top: 176px;
+            width: 300px;
+            height: 400px;
+        }
+
+        .annotation.group {
+            left: 507px;
+            top: 86px;
+            width: 300px;
+            height: 400px;
+        }
+
+        .annotation.combobox {
+            left: 874px;
+            top: 94px;
+            width: 300px;
+            height: 200px;
+        }
+
+        /* Show annotations on hover */
+        .figma-container:hover .annotation {
+            opacity: 1;
+        }
+
+        .annotation {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button onclick="toggleTheme()">Toggle Theme</button>
+    </div>
+
+    <div class="container">
+        <div class="figma-container">
+            <!-- Section Label -->
+            <div class="section-label">
+                <p>Standard dropdown</p>
+            </div>
+
+            <!-- Standard Dropdown - Closed -->
+            <div class="standard-dropdown-closed" data-annotations="standard dropdown with closed dropdown">
+                <div class="label">
+                    <div class="text-component label">
+                        <p>Label</p>
+                    </div>
+                </div>
+                <div class="dropdown-field">
+                    <div class="text-container">
+                        <div class="text-component placeholder">
+                            <p>Select Zero trust policies</p>
+                        </div>
+                    </div>
+                    <div class="chevron-icon">
+                        <div class="vector">
+                            <svg viewBox="0 0 16 16" fill="none">
+                                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="annotation standard-closed">
+                    <strong>Annotation:</strong> standard dropdown with closed dropdown
+                </div>
+            </div>
+
+            <!-- Standard Dropdown - Open with Hover -->
+            <div class="standard-dropdown-open" data-annotations="Standard dropdown with open dropdown panel | Hover state of item">
+                <div class="label">
+                    <div class="text-component label">
+                        <p>Label</p>
+                    </div>
+                </div>
+                <div class="dropdown-field">
+                    <div class="text-container">
+                        <div class="text-component placeholder">
+                            <p>Select Zero trust policies</p>
+                        </div>
+                    </div>
+                    <div class="chevron-icon">
+                        <div class="vector">
+                            <svg viewBox="0 0 16 16" fill="none">
+                                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown-container">
+                    <div class="dropdown-item">New</div>
+                    <div class="dropdown-item" style="background: #e9ebec;">Zero Trust Policy</div>
+                    <div class="dropdown-item">New</div>
+                    <div class="dropdown-item">New</div>
+                    <div class="dropdown-item">New</div>
+                    <div class="dropdown-item">New</div>
+                </div>
+                <div class="annotation standard-open">
+                    <strong>Annotation:</strong> Standard dropdown with open dropdown panel | Hover state of item
+                </div>
+            </div>
+
+            <!-- Group Dropdown -->
+            <div class="group-dropdown" data-annotations="Group dropdown with dropdown open | Group dropdown header" data-development-annotations="item default">
+                <div class="label">
+                    <div class="text-component label">
+                        <p>Label</p>
+                    </div>
+                </div>
+                <div class="dropdown-field">
+                    <div class="text-container">
+                        <div class="text-component placeholder">
+                            <p>Select an option...</p>
+                        </div>
+                    </div>
+                    <div class="chevron-icon">
+                        <div class="vector">
+                            <svg viewBox="0 0 16 16" fill="none">
+                                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown-container">
+                    <div class="group-header">Network security</div>
+                    <div class="dropdown-item" style="padding-left: 16px; padding-right: 8px;">Zero Trust Policy</div>
+                    <div class="dropdown-item" style="padding-left: 16px; padding-right: 8px;">Firewall Rules</div>
+                    <div class="dropdown-item" style="padding-left: 16px; padding-right: 8px;">Zero Trust Policy</div>
+                    <div class="group-header">Application security</div>
+                    <div class="dropdown-item" style="padding-left: 16px; padding-right: 8px;">API Security</div>
+                </div>
+                <div class="annotation group">
+                    <strong>Annotation:</strong> Group dropdown with dropdown open | Group dropdown header<br>
+                    <strong>Dev Annotation:</strong> item default
+                </div>
+            </div>
+
+            <!-- Combobox with Create -->
+            <div class="combobox" data-annotations="Combobox input field, works like a regular input field but this is a combination of dropdown and autocomplete and create a new item that is not in the options. This interaction shows that orange is typed and the dropdown suggested to add the option. | down arrow | This interaction is triggered by createing a new option and when the user enters this typed option will be craeted.">
+                <div class="label">
+                    <div class="text-component label">
+                        <p>Fruit</p>
+                    </div>
+                </div>
+                <div class="dropdown-field">
+                    <div class="text-container">
+                        <div class="text-component" style="position: absolute; bottom: 0; left: 0; right: 55.83%; top: 0; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 20px; color: #081826; text-align: left; white-space: nowrap;">
+                            <p>Orange</p>
+                        </div>
+                    </div>
+                    <div class="chevron-icon">
+                        <div class="vector">
+                            <svg viewBox="0 0 16 16" fill="none">
+                                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown-container">
+                    <div class="create-option">
+                        <button class="create-button">
+                            <svg viewBox="0 0 16 16" fill="none">
+                                <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Create
+                        </button>
+                        <span style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 14px; line-height: 20px; color: #081826;">"Orange"</span>
+                    </div>
+                </div>
+                <div class="annotation combobox">
+                    <strong>Annotation:</strong> Combobox input field, works like a regular input field but this is a combination of dropdown and autocomplete and create a new item that is not in the options. This interaction shows that orange is typed and the dropdown suggested to add the option. | down arrow | This interaction is triggered by createing a new option and when the user enters this typed option will be craeted.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+        }
+
+        // Show annotations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.querySelectorAll('.annotation').forEach(annotation => {
+                    annotation.style.opacity = '0.8';
+                });
+            }, 1000);
+        });
+
+        // Interactive focus states
+        document.querySelectorAll('.dropdown-field').forEach(field => {
+            field.addEventListener('click', function() {
+                // Remove focus from all other fields
+                document.querySelectorAll('.dropdown-field').forEach(f => {
+                    f.classList.remove('focus-active');
+                });
+                // Add focus to clicked field
+                this.classList.add('focus-active');
+            });
+        });
+
+        // Click outside to remove focus
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown-field')) {
+                document.querySelectorAll('.dropdown-field').forEach(field => {
+                    field.classList.remove('focus-active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Component Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: #081826;
+            padding: 2rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #6b7280;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+        }
+
+        .theme-toggle button {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 8px 16px;
+            color: #374151;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-icon {
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .example-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .example-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .dropdown-container {
+            position: relative;
+        }
+
+        .dropdown-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #081826;
+            margin-bottom: 4px;
+        }
+
+        .dropdown-field {
+            width: 100%;
+            height: 48px;
+            background: #ffffff;
+            border: 1px solid #9da4ae;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .dropdown-field:hover {
+            border-color: #6b7280;
+        }
+
+        .dropdown-field.focus-active {
+            border-color: #155e75;
+            box-shadow: 0 0 0 1px #155e75, 0 0 0 3px #fb923c;
+        }
+
+        .dropdown-field.error {
+            border-color: #c1001b;
+        }
+
+        .dropdown-field.disabled {
+            background: #f5f5f5;
+            color: #9da4ae;
+            cursor: not-allowed;
+        }
+
+        .dropdown-text {
+            color: #9da4ae;
+        }
+
+        .dropdown-text.selected {
+            color: #081826;
+        }
+
+        .dropdown-chevron {
+            width: 16px;
+            height: 16px;
+            color: #253746;
+        }
+
+        .dropdown-chevron.disabled {
+            color: #9da4ae;
+        }
+
+        .error-message {
+            color: #c1001b;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .disabled-label {
+            color: #9da4ae;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button onclick="toggleTheme()">Toggle Theme</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Advanced Dropdown Component</h1>
+            <p>Comprehensive dropdown component with standard, group, and combobox functionality</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <div class="section-icon"></div>
+                Standard Dropdown
+            </div>
+            <p class="section-subtitle">Basic dropdown with single-level options and proper focus states</p>
+            
+            <div class="examples-grid">
+                <!-- Default State -->
+                <div class="example-card">
+                    <div class="example-title">Default State</div>
+                    <div class="dropdown-container">
+                        <div class="dropdown-label">Label</div>
+                        <div class="dropdown-field" onclick="toggleFocus(this)">
+                            <span class="dropdown-text">Select an option...</span>
+                            <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none">
+                                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- With Selection -->
+                <div class="example-card">
+                    <div class="example-title">With Selection</div>
+                    <div class="dropdown-container">
+                        <div class="dropdown-label">Label</div>
+                        <div class="dropdown-field" onclick="toggleFocus(this)">
+                            <span class="dropdown-text selected">Zero Trust Policy</span>
+                            <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none">
+                                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error State -->
+                <div class="example-card">
+                    <div class="example-title">Error State</div>
+                    <div class="dropdown-container">
+                        <div class="dropdown-label">Field with Error</div>
+                        <div class="dropdown-field error" onclick="toggleFocus(this)">
+                            <span class="dropdown-text">Select an option...</span>
+                            <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none">
+                                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="error-message">Please select a valid option to continue</div>
+                    </div>
+                </div>
+
+                <!-- Disabled State -->
+                <div class="example-card">
+                    <div class="example-title">Disabled State</div>
+                    <div class="dropdown-container">
+                        <div class="dropdown-label disabled-label">Disabled Field</div>
+                        <div class="dropdown-field disabled">
+                            <span class="dropdown-text">Select an option...</span>
+                            <svg class="dropdown-chevron disabled" viewBox="0 0 16 16" fill="none">
+                                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <div class="section-icon"></div>
+                Focus States
+            </div>
+            <p class="section-subtitle">Click on the dropdown fields below to see the proper focus states with cyan inner border and orange outer ring</p>
+            
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-title">Focus Active State</div>
+                    <div class="dropdown-container">
+                        <div class="dropdown-label">Click to Focus</div>
+                        <div class="dropdown-field" onclick="toggleFocus(this)">
+                            <span class="dropdown-text">Click to see focus state...</span>
+                            <svg class="dropdown-chevron" viewBox="0 0 16 16" fill="none">
+                                <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+        }
+
+        function toggleFocus(field) {
+            // Remove focus from all other fields
+            document.querySelectorAll('.dropdown-field').forEach(f => {
+                f.classList.remove('focus-active');
+            });
+            // Add focus to clicked field
+            field.classList.add('focus-active');
+        }
+
+        // Click outside to remove focus
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown-field')) {
+                document.querySelectorAll('.dropdown-field').forEach(field => {
+                    field.classList.remove('focus-active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
