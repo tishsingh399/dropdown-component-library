@@ -804,10 +804,11 @@
             <div class="component-section">
                 <div class="component-title">Search Dropdown</div>
                 <div class="component-description">Dropdown with integrated search functionality</div>
+                <button onclick="testSearch()" style="margin-bottom: 10px; padding: 5px 10px; background: #1c63a5; color: white; border: none; border-radius: 4px; cursor: pointer;">Test Search</button>
                 
                 <div class="dropdown-container">
                     <div class="dropdown-label">Label</div>
-                    <div class="dropdown-field" onclick="toggleDropdown('search')">
+                    <div class="dropdown-field" onclick="toggleDropdown('search'); console.log('Search dropdown clicked');">
                         <span class="dropdown-text" id="search-text">Select cloud providers</span>
                         <svg class="dropdown-chevron" id="search-chevron" viewBox="0 0 16 16" fill="none">
                             <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1077,13 +1078,24 @@
             tag.remove();
         }
 
+        function testSearch() {
+            console.log('Test search function called');
+            toggleDropdown('search');
+            setTimeout(() => {
+                filterSearchOptions('aws');
+            }, 100);
+        }
+
         function filterSearchOptions(searchTerm) {
+            console.log('Searching for:', searchTerm); // Debug log
             const items = document.querySelectorAll('#search-menu .dropdown-item');
+            console.log('Found items:', items.length); // Debug log
             let hasVisibleItems = false;
             
             items.forEach(item => {
                 const text = item.textContent.toLowerCase();
                 const matches = text.includes(searchTerm.toLowerCase());
+                console.log('Item:', text, 'Matches:', matches); // Debug log
                 
                 if (matches) {
                     item.style.display = 'flex';
