@@ -76,7 +76,7 @@
 
         .components-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 2.5rem;
             margin-bottom: 3rem;
         }
@@ -601,29 +601,7 @@
                 </div>
             </div>
 
-            <!-- Standard Dropdown - Open -->
-            <div class="component-section">
-                <div class="component-title">Standard Dropdown - Open</div>
-                <div class="component-description">Standard dropdown with open dropdown panel | Hover state of item</div>
-                
-                <div class="dropdown-container">
-                    <div class="dropdown-label">Label</div>
-                    <div class="dropdown-field" onclick="toggleDropdown('standard-open')">
-                        <span class="dropdown-text" id="standard-open-text">Select Zero trust policies</span>
-                        <svg class="dropdown-chevron" id="standard-open-chevron" viewBox="0 0 16 16" fill="none">
-                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="dropdown-menu" id="standard-open-menu">
-                        <div class="dropdown-item" onclick="selectOption('standard-open', 'Device Trust Certification')">Device Trust Certification</div>
-                        <div class="dropdown-item" style="background: #e9ebec;" onclick="selectOption('standard-open', 'Zero Trust Policy')">Zero Trust Policy</div>
-                        <div class="dropdown-item" onclick="selectOption('standard-open', 'Access Control Lists')">Access Control Lists</div>
-                        <div class="dropdown-item" onclick="selectOption('standard-open', 'Data Encryption Standards')">Data Encryption Standards</div>
-                        <div class="dropdown-item" onclick="selectOption('standard-open', 'Incident Response Plan')">Incident Response Plan</div>
-                        <div class="dropdown-item" onclick="selectOption('standard-open', 'Security Awareness Training')">Security Awareness Training</div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- Group Dropdown -->
             <div class="component-section">
@@ -724,49 +702,7 @@
                 </div>
             </div>
 
-            <!-- Multi-Select with Selections -->
-            <div class="component-section">
-                <div class="component-title">Multi-Select with Selections</div>
-                <div class="component-description">Multi-select dropdown showing selected count</div>
-                
-                <div class="dropdown-container">
-                    <div class="dropdown-label">Label</div>
-                    <div class="dropdown-field" onclick="toggleDropdown('multiselect-count')">
-                        <div class="multi-select-field">
-                            <span class="selected-count" id="multiselect-count-text">2 Selected</span>
-                        </div>
-                        <svg class="dropdown-chevron" id="multiselect-count-chevron" viewBox="0 0 16 16" fill="none">
-                            <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="dropdown-menu" id="multiselect-count-menu">
-                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('select-all-count')">
-                            <div class="checkbox" id="select-all-count-checkbox"></div>
-                            <span>Select all</span>
-                        </div>
-                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('analytics-count')">
-                            <div class="checkbox checked" id="analytics-count-checkbox"></div>
-                            <span>Analytics</span>
-                        </div>
-                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('security-count')">
-                            <div class="checkbox checked" id="security-count-checkbox"></div>
-                            <span>Security</span>
-                        </div>
-                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('performance-count')">
-                            <div class="checkbox" id="performance-count-checkbox"></div>
-                            <span>Performance</span>
-                        </div>
-                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('monitoring-count')">
-                            <div class="checkbox" id="monitoring-count-checkbox"></div>
-                            <span>Monitoring</span>
-                        </div>
-                        <div class="dropdown-item checkbox-item" onclick="toggleCheckbox('logging-count')">
-                            <div class="checkbox" id="logging-count-checkbox"></div>
-                            <span>Logging</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- Tags/Chips Dropdown -->
             <div class="component-section">
@@ -804,11 +740,10 @@
             <div class="component-section">
                 <div class="component-title">Search Dropdown</div>
                 <div class="component-description">Dropdown with integrated search functionality</div>
-                <button onclick="testSearch()" style="margin-bottom: 10px; padding: 5px 10px; background: #1c63a5; color: white; border: none; border-radius: 4px; cursor: pointer;">Test Search</button>
                 
                 <div class="dropdown-container">
                     <div class="dropdown-label">Label</div>
-                    <div class="dropdown-field" onclick="toggleDropdown('search'); console.log('Search dropdown clicked');">
+                    <div class="dropdown-field" onclick="toggleDropdown('search')">
                         <span class="dropdown-text" id="search-text">Select cloud providers</span>
                         <svg class="dropdown-chevron" id="search-chevron" viewBox="0 0 16 16" fill="none">
                             <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1078,24 +1013,13 @@
             tag.remove();
         }
 
-        function testSearch() {
-            console.log('Test search function called');
-            toggleDropdown('search');
-            setTimeout(() => {
-                filterSearchOptions('aws');
-            }, 100);
-        }
-
         function filterSearchOptions(searchTerm) {
-            console.log('Searching for:', searchTerm); // Debug log
             const items = document.querySelectorAll('#search-menu .dropdown-item');
-            console.log('Found items:', items.length); // Debug log
             let hasVisibleItems = false;
             
             items.forEach(item => {
                 const text = item.textContent.toLowerCase();
                 const matches = text.includes(searchTerm.toLowerCase());
-                console.log('Item:', text, 'Matches:', matches); // Debug log
                 
                 if (matches) {
                     item.style.display = 'flex';
